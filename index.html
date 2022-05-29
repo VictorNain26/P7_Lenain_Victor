@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Les petits plats</title>
+  <link href="./dist/output.css" rel="stylesheet">
+  <script src="./scripts/index.js" async></script>
+</head>
+<body>
+  <header class="flex justify-center">
+    <img class="w-64 mt-10" src="./assets/logo/Logo.png" alt="Logo">
+  </header>
+  <div id="search-bar" class="flex justify-center w-full mt-4">
+    <label class="flex items-center relative w-4/5">
+      <input class="w-full h-16 p-4 rounded-md bg-neutral-200 outline-0" placeholder="Rechercher une recette" type="text" name="search"/>
+      <img class="absolute right-4" src="./assets/loupe.png" alt="Loupe">
+    </label>
+  </div>
+  <!-- Tag Componant -->
+  <div id="tag" class="flex justify-center w-full mt-6">
+    <div class="flex items-center w-4/5">
+      <div class="flex flex-row justify-around items-center bg-blue-500 w-24 h-9 rounded-md">
+        <p class="text-white text-xs pointer-events-none">Coco</p>
+        <img class="cursor-pointer" src="./assets/close_cross.png" alt="tag close">
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-center w-full mt-4">
+    <div id="tag-container" class="flex items-center w-4/5 h-16">
+
+      <div class="tag w-44 h-full transition-all duration-300 z-10">
+        <div class="flex justify-between items-center bg-blue-500 h-full rounded-md cursor-pointer transition-all duration-300">
+          <p class="text-white text-lg m-4">Ingredients</p>
+          <input class="outline-0 hidden justify-around items-center bg-blue-500 w-full h-full m-4 placeholder:text-white placeholder:opacity-50 text-white" placeholder="Rechercher un ingrédient" type="text"/>
+          <img class="transition-all duration-300 justify-between m-4" src="./assets/arrow.png" alt="tag close">
+        </div>
+        <div class="flex bg-blue-500 w-full h-0 rounded-b-md transition-all duration-300">
+          <!-- add elements -->
+        </div>
+      </div>
+
+      <div class="tag w-44 h-full ml-4 transition-all duration-300 z-10">
+        <div class="flex justify-between items-center bg-emerald-300 h-full rounded-md cursor-pointer transition-all duration-300">
+          <p class="text-white text-lg m-4">Appareils</p>
+          <input class="outline-0 hidden justify-around items-center bg-emerald-300 w-full h-full m-4 placeholder:text-white placeholder:opacity-50 text-white" placeholder="Rechercher un ingrédient" type="text"/>
+          <img class="transition-all duration-300 justify-between m-4" src="./assets/arrow.png" alt="tag close">
+        </div>
+        <div class="flex bg-emerald-300 w-full h-0 rounded-b-md transition-all duration-300">
+          <!-- add elements -->
+        </div>
+      </div>
+
+      <div class="tag w-44 h-full ml-4 transition-all duration-300 z-10">
+        <div class="flex justify-between items-center bg-red-400 h-full rounded-md cursor-pointer transition-all duration-300">
+          <p class="text-white text-lg m-4">Ustensiles</p>
+          <input class="outline-0 hidden justify-around items-center bg-red-400 w-full h-full m-4 placeholder:text-white placeholder:opacity-50 text-white" placeholder="Rechercher un ingrédient" type="text"/>
+          <img class="transition-all duration-300 justify-between m-4" src="./assets/arrow.png" alt="tag close">
+        </div>
+        <div class="flex bg-red-400 w-full h-0 rounded-b-md transition-all duration-300">
+          <!-- add elements -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-center w-full mt-6">
+    <div class="flex w-4/5">
+
+      <!-- Card Componant -->
+      <div class="flex flex-col w-96 h-96">
+        <div class="w-full h-1/2 bg-stone-300 rounded-t-md"></div>
+        <div class="flex flex-col p-5 w-full h-1/2 bg-neutral-200 rounded-b-md">
+          <div class="flex flex-row justify-between mb-5">
+            <p class="text-lg">Limonade de Coco</p>
+            <div class="flex flex-row">
+              <img class="object-contain mr-1" src="./assets/horloge.png" alt="horloge">
+              <span class="text-lg">10 min</span>
+            </div>
+          </div>
+          <div class="flex flex-row justify-between">
+            <div class="flex flex-col w-1/2 text-xs">
+              <p>Lait de coco: 400ml</p>
+              <p>Jus de citron: 2</p>
+              <p>Créme de coco: 4 cuillères</p>
+              <p>Sucre: 20g</p>
+              <p>Glaçons: 2</p>
+            </div>
+            <div class="w-1/2 text-xs">
+              <p>
+                Mettre les glacçons à votre goût dans le blender, ajouter le lait, la crème de coco,
+                le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
