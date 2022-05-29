@@ -2,24 +2,24 @@ const tags = document.querySelectorAll('#tag-container .tag');
 
 tags.forEach((tag) => {
   tag.addEventListener('click', (e) => {
-    if (e.target.parentNode !== tag) return;
+    if (e.target !== tag) return;
 
     const eventIngredientArrowTag = e.target.children[2];
     const eventIngredientPTag = e.target.children[0];
     const eventIngredientInputTag = e.target.children[1];
-    const tagDropdown = tag.children[1];
+    const tagDropdown = tag.parentNode.children[1];
 
     tags.forEach((otherTag) => {
-      if (otherTag.classList.contains('w-1/2')) {
-        const input = otherTag.childNodes[1].childNodes[3];
-        const otherTagDropdown = otherTag.childNodes[3];
+      if (otherTag.parentNode.classList.contains('w-1/2')) {
+        const input = otherTag.childNodes[3];
+        const otherTagDropdown = otherTag.parentNode.childNodes[3];
 
-        otherTag.classList.add('w-44');
-        otherTag.classList.remove('w-1/2');
-        otherTag.childNodes[1].classList.remove('rounded-t-md');
-        otherTag.childNodes[1].classList.add('rounded-md');
-        otherTag.childNodes[1].childNodes[5].classList.remove('rotate-180');
-        otherTag.childNodes[1].childNodes[1].classList.remove('hidden');
+        otherTag.parentNode.classList.add('w-44');
+        otherTag.parentNode.classList.remove('w-1/2');
+        otherTag.parentNode.childNodes[1].classList.remove('rounded-t-md');
+        otherTag.parentNode.childNodes[1].classList.add('rounded-md');
+        otherTag.parentNode.childNodes[1].childNodes[5].classList.remove('rotate-180');
+        otherTag.parentNode.childNodes[1].childNodes[1].classList.remove('hidden');
         input.classList.add('hidden');
         input.value = '';
         otherTagDropdown.classList.remove('h-full');

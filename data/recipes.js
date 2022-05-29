@@ -1,3 +1,4 @@
+/* eslint-disable */
 const recipes = [
     {
         "id": 1,
