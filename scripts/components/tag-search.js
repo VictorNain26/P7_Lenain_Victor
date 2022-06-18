@@ -48,12 +48,14 @@ export default class tagSearch {
 
   static refresh = (currentCards) => {
     const newCards = document.querySelectorAll('.card');
+    const allTags = document.querySelectorAll('.tags');
     const ingredientsContainer = document.querySelector('#ingredients-tag-container');
     const ustensilsContainer = document.querySelector('#ustensils-tag-container');
     const appliancesContainer = document.querySelector('#appliances-tag-container');
     const ustensils = [];
     const appliances = [];
     const ingredients = [];
+    const tagsArray = Array.from(allTags).map((tag) => tag.id);
 
     while (ingredientsContainer.firstChild) {
       ingredientsContainer.removeChild(ingredientsContainer.firstChild);
@@ -73,7 +75,9 @@ export default class tagSearch {
       ingredients.push(card.dataset.ingredients.split(','));
     });
 
+
     Array.from(new Set(ustensils.flat())).forEach((ustensil) => {
+      if (tagsArray.includes(ustensil)) return;
       const nodeUstensil = document.createElement('p');
       nodeUstensil.classList.add('m-4', 'cursor-pointer');
       nodeUstensil.innerText = ustensil;
@@ -84,6 +88,7 @@ export default class tagSearch {
     });
 
     Array.from(new Set(appliances.flat())).forEach((appliance) => {
+      if (tagsArray.includes(appliance)) return;
       const nodeAppliance = document.createElement('p');
       nodeAppliance.classList.add('m-4', 'cursor-pointer');
       nodeAppliance.innerText = appliance;
@@ -94,6 +99,7 @@ export default class tagSearch {
     });
 
     Array.from(new Set(ingredients.flat())).forEach((ingredient) => {
+      if (tagsArray.includes(ingredient)) return;
       const nodeIngredient = document.createElement('p');
       nodeIngredient.classList.add('m-4', 'cursor-pointer');
       nodeIngredient.innerText = ingredient;
@@ -126,6 +132,8 @@ export default class tagSearch {
 
   static tagValidate = (card) => {
     const allTags = document.querySelectorAll('.tags');
+    if (allTags.length === 0) return true;
+
     const cardArray = [];
     cardArray.push(card.dataset.ustensils.split(','));
     cardArray.push(card.dataset.appliance);
@@ -133,11 +141,12 @@ export default class tagSearch {
 
     const tagsArray = Array.from(allTags).map((tag) => tag.id);
 
-    const test = tagsArray.some((element) => cardArray.flat().includes(element));
+    const test = tagsArray.every((element) => cardArray.flat().includes(element));
     return test;
   };
 
   static tagSearch = (currentCards) => {
+    const allTags = document.querySelectorAll('.tags');
     const cardsContainer = document.querySelector('#cards-container');
     const searchWord = document.querySelector('#search-word');
     const notFound = document.querySelector('#not-found');
@@ -147,18 +156,22 @@ export default class tagSearch {
       cardsContainer.removeChild(cardsContainer.firstChild);
     }
 
-    currentCards.forEach((card) => {
-      // console.log(
-      //   !card.innerText.toLowerCase().includes(searchWord.value.trim().toLowerCase()),
-      //   !this.tagValidate(card),
-      // );
-      console.log(!this.tagValidate(card));
-      if (!card.innerText.toLowerCase().includes(searchWord.value.trim().toLowerCase()
-          && !this.tagValidate(card))) return;
-
-      console.log(card);
-      newCards.push(card);
+    if (searchWord.value.length <= 2 && allTags.length === 0) {
+      currentCards.forEach((card) => cardsContainer.appendChild(card));
+      tagSearch.refresh(currentCards);
       notFound.classList.add('hidden');
+      return;
+    }
+
+    currentCards.forEach((card) => {
+      const validateSearch = searchWord.value.length <= 2
+        ? true
+        : card.innerText.toLowerCase().includes(searchWord.value.trim().toLowerCase());
+
+      if (this.tagValidate(card) && validateSearch) {
+        newCards.push(card);
+        notFound.classList.add('hidden');
+      }
     });
     if (newCards.length === 0) {
       notFound.classList.remove('hidden');

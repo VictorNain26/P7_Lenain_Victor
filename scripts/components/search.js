@@ -13,10 +13,12 @@ export default class search {
     const notFound = document.querySelector('#not-found');
 
     searchWord.addEventListener('input', () => {
+      const allTags = document.querySelectorAll('.tags');
+
       while (cardsContainer.firstChild) {
         cardsContainer.removeChild(cardsContainer.firstChild);
       }
-      if (searchWord.value.length <= 2) {
+      if (searchWord.value.length <= 2 && allTags.length === 0) {
         currentCards.forEach((card) => cardsContainer.appendChild(card));
         tagSearch.refresh(currentCards);
         notFound.classList.add('hidden');
@@ -25,12 +27,14 @@ export default class search {
       const newCards = [];
 
       currentCards.forEach((card) => {
-        // recherche sur toutes les cards une par une trouver un moyen pour
-        // rendre la recherche plus rapide
-        if (!card.innerText.toLowerCase().includes(searchWord.value.trim().toLowerCase())) return;
+        const validateSearch = searchWord.value.length <= 2
+          ? true
+          : card.innerText.toLowerCase().includes(searchWord.value.trim().toLowerCase());
 
-        newCards.push(card);
-        notFound.classList.add('hidden');
+        if (tagSearch.tagValidate(card) && validateSearch) {
+          newCards.push(card);
+          notFound.classList.add('hidden');
+        }
       });
       if (newCards.length === 0) {
         notFound.classList.remove('hidden');
