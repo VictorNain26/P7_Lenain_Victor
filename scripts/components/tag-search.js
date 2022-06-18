@@ -75,7 +75,6 @@ export default class tagSearch {
       ingredients.push(card.dataset.ingredients.split(','));
     });
 
-
     Array.from(new Set(ustensils.flat())).forEach((ustensil) => {
       if (tagsArray.includes(ustensil)) return;
       const nodeUstensil = document.createElement('p');
@@ -150,7 +149,6 @@ export default class tagSearch {
     const cardsContainer = document.querySelector('#cards-container');
     const searchWord = document.querySelector('#search-word');
     const notFound = document.querySelector('#not-found');
-    const newCards = [];
 
     while (cardsContainer.firstChild) {
       cardsContainer.removeChild(cardsContainer.firstChild);
@@ -163,22 +161,23 @@ export default class tagSearch {
       return;
     }
 
-    currentCards.forEach((card) => {
+    const filteredCards = Array.from(currentCards).map((card) => {
       const validateSearch = searchWord.value.length <= 2
         ? true
         : card.innerText.toLowerCase().includes(searchWord.value.trim().toLowerCase());
 
-      if (this.tagValidate(card) && validateSearch) {
-        newCards.push(card);
-        notFound.classList.add('hidden');
+      if (tagSearch.tagValidate(card) && validateSearch) {
+        return card;
       }
+      return false;
     });
-    if (newCards.length === 0) {
+    if (filteredCards.length === 0) {
       notFound.classList.remove('hidden');
       return;
     }
 
-    newCards.forEach((card) => cardsContainer.appendChild(card));
+    filteredCards.forEach((card) => cardsContainer.appendChild(card));
     this.refresh(currentCards);
+    notFound.classList.add('hidden');
   };
 }

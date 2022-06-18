@@ -24,24 +24,25 @@ export default class search {
         notFound.classList.add('hidden');
         return;
       }
-      const newCards = [];
 
-      currentCards.forEach((card) => {
+      const filteredCards = Array.from(currentCards).map((card) => {
         const validateSearch = searchWord.value.length <= 2
           ? true
           : card.innerText.toLowerCase().includes(searchWord.value.trim().toLowerCase());
 
         if (tagSearch.tagValidate(card) && validateSearch) {
-          newCards.push(card);
-          notFound.classList.add('hidden');
+          return card;
         }
+        return false;
       });
-      if (newCards.length === 0) {
+      if (filteredCards.length === 0) {
         notFound.classList.remove('hidden');
         return;
       }
-      newCards.forEach((card) => cardsContainer.appendChild(card));
+
+      filteredCards.forEach((card) => cardsContainer.appendChild(card));
       tagSearch.refresh(currentCards);
+      notFound.classList.add('hidden');
     });
   };
 }
