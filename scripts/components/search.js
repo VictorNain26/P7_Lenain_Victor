@@ -28,7 +28,7 @@ export default class search {
         lastWord = searchWord.value.trim().toLowerCase();
         return;
       }
-
+      console.time('search');
       if (lastWord.length > searchWord.value.length || searchWord.value.length <= 2) {
         filteredCards = Array.from(allCards).filter((card) => {
           const validateSearch = searchWord.value.length <= 2
@@ -52,6 +52,7 @@ export default class search {
           return false;
         });
       }
+      console.timeEnd('search');
       if (filteredCards.length === 0) {
         notFound.classList.remove('hidden');
         lastWord = searchWord.value.trim().toLowerCase();

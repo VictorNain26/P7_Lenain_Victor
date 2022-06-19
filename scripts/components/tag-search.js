@@ -160,7 +160,7 @@ export default class tagSearch {
       notFound.classList.add('hidden');
       return;
     }
-
+    console.time('filter');
     const filteredCards = Array.from(currentCards).filter((card) => {
       const validateSearch = searchWord.value.length <= 2
         ? true
@@ -171,6 +171,7 @@ export default class tagSearch {
       }
       return false;
     });
+    console.timeEnd('filter');
     if (filteredCards.length === 0) {
       notFound.classList.remove('hidden');
       return;
