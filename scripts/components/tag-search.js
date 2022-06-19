@@ -161,7 +161,7 @@ export default class tagSearch {
       return;
     }
 
-    const filteredCards = Array.from(currentCards).map((card) => {
+    const filteredCards = Array.from(currentCards).filter((card) => {
       const validateSearch = searchWord.value.length <= 2
         ? true
         : card.innerText.toLowerCase().includes(searchWord.value.trim().toLowerCase());
