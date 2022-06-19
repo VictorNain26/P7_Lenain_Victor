@@ -24,7 +24,7 @@ export default class search {
         notFound.classList.add('hidden');
         return;
       }
-
+      console.time('search');
       const filteredCards = Array.from(currentCards).filter((card) => {
         const validateSearch = searchWord.value.length <= 2
           ? true
@@ -35,6 +35,7 @@ export default class search {
         }
         return false;
       });
+      console.timeEnd('search');
       if (filteredCards.length === 0) {
         notFound.classList.remove('hidden');
         return;
