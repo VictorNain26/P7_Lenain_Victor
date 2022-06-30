@@ -9,60 +9,39 @@ export default class search {
   static search = () => {
     const cardsContainer = document.querySelector('#cards-container');
     const searchWord = document.querySelector('#search-word');
-    const allCards = document.querySelectorAll('.card');
+    const currentCards = document.querySelectorAll('.card');
     const notFound = document.querySelector('#not-found');
-    let lastWord = '';
 
     searchWord.addEventListener('input', () => {
-      const currentCards = document.querySelectorAll('.card');
       const allTags = document.querySelectorAll('.tags');
-      let filteredCards = [];
 
       while (cardsContainer.firstChild) {
         cardsContainer.removeChild(cardsContainer.firstChild);
       }
       if (searchWord.value.length <= 2 && allTags.length === 0) {
-        allCards.forEach((card) => cardsContainer.appendChild(card));
-        tagSearch.refresh(allCards);
+        currentCards.forEach((card) => cardsContainer.appendChild(card));
+        tagSearch.refresh(currentCards);
         notFound.classList.add('hidden');
-        lastWord = searchWord.value.trim().toLowerCase();
         return;
       }
-      console.time('search');
-      if (lastWord.length > searchWord.value.length || searchWord.value.length <= 2) {
-        filteredCards = Array.from(allCards).filter((card) => {
-          const validateSearch = searchWord.value.length <= 2
-            ? true
-            : card.innerText.toLowerCase().includes(searchWord.value.trim().toLowerCase());
+      const newCards = [];
 
-          if (tagSearch.tagValidate(card) && validateSearch) {
-            return card;
-          }
-          return false;
-        });
-      } else {
-        filteredCards = Array.from(currentCards).filter((card) => {
-          const validateSearch = searchWord.value.length <= 2
-            ? true
-            : card.innerText.toLowerCase().includes(searchWord.value.trim().toLowerCase());
+      currentCards.forEach((card) => {
+        const validateSearch = searchWord.value.length <= 2
+          ? true
+          : card.innerText.toLowerCase().includes(searchWord.value.trim().toLowerCase());
 
-          if (tagSearch.tagValidate(card) && validateSearch) {
-            return card;
-          }
-          return false;
-        });
-      }
-      console.timeEnd('search');
-      if (filteredCards.length === 0) {
+        if (tagSearch.tagValidate(card) && validateSearch) {
+          newCards.push(card);
+          notFound.classList.add('hidden');
+        }
+      });
+      if (newCards.length === 0) {
         notFound.classList.remove('hidden');
-        lastWord = searchWord.value.trim().toLowerCase();
         return;
       }
-
-      filteredCards.flat().forEach((card) => cardsContainer.appendChild(card));
-      tagSearch.refresh(allCards);
-      notFound.classList.add('hidden');
-      lastWord = searchWord.value.trim().toLowerCase();
+      newCards.forEach((card) => cardsContainer.appendChild(card));
+      tagSearch.refresh(currentCards);
     });
   };
 }
