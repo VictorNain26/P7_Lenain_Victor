@@ -26,16 +26,18 @@ export default class search {
       }
       const newCards = [];
 
-      currentCards.forEach((card) => {
+      for (let pas = 0; pas < currentCards.length; pas += 1) {
         const validateSearch = searchWord.value.length <= 2
           ? true
-          : card.innerText.toLowerCase().includes(searchWord.value.trim().toLowerCase());
+          : currentCards[pas].innerText.toLowerCase()
+            .includes(searchWord.value.trim().toLowerCase());
 
-        if (tagSearch.tagValidate(card) && validateSearch) {
-          newCards.push(card);
+        if (tagSearch.tagValidate(currentCards[pas]) && validateSearch) {
+          newCards.push(currentCards[pas]);
           notFound.classList.add('hidden');
         }
-      });
+      }
+
       if (newCards.length === 0) {
         notFound.classList.remove('hidden');
         return;
