@@ -141,8 +141,7 @@ export default class tagSearch {
 
     const tagsArray = Array.from(allTags).map((tag) => tag.id);
 
-    const test = tagsArray.every((element) => cardArray.flat().includes(element));
-    return test;
+    return tagsArray.every((element) => cardArray.flat().includes(element));
   };
 
   static tagSearch = (currentCards) => {
